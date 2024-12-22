@@ -1,4 +1,5 @@
 import './style.css';
+import { WeatherDataDisplay } from './weatherDataDisplay';
 
 async function getWeatherJSON(location) {
     try {
@@ -21,6 +22,7 @@ async function processWeatherJSON(json) {
 
     let makeDayObject = function(day) {
         let dayObject = {
+            date: day.datetime,
             conditions: day.conditions,
             icon: day.icon,
             description: day.description,
@@ -57,15 +59,24 @@ async function processWeatherJSON(json) {
 async function getWeatherData(location) {
     let weatherJSON = await getWeatherJSON(location);
     let weatherData = await processWeatherJSON(weatherJSON);
-    console.log(weatherData);
+    return weatherData;
 }
 
-getWeatherData('columbus');
-
-let userSearchBtn = document.querySelector('input.submit-btn');
+let userSearchBtn = document.querySelector('button.submit-btn');
 let userSearch = document.querySelector('input.user-search');
 
 userSearchBtn.addEventListener('click', (e) => {
     e.preventDefault();
     
+})
+
+let sevenDayViewBtn = document.querySelector('button.seven-day-btn');
+let oneDayViewBtn = document.querySelector('button.one-day-btn');
+
+WeatherDataDisplay.setWeatherData(await getWeatherData('columbus'));
+WeatherDataDisplay.display7DayView();
+
+sevenDayViewBtn.addEventListener('click', () => {
+    WeatherDataDisplay.display7DayView();
+    console.log('i worked!');
 })

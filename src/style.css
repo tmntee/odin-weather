@@ -14,6 +14,7 @@ div.header {
     grid-row: 1 / 2;
     display: grid;
     grid-template-columns: 500px 3fr 1fr;
+    min-height: 10vh;
 }
 
 div.content {
@@ -60,6 +61,7 @@ div.day-select-bar {
 .seven-day-view {
     display: grid;
     grid-template-rows: 3em repeat(7, 1fr);
+    max-height: 90vh;
 }
 
 div.hidden {
@@ -67,7 +69,22 @@ div.hidden {
 }
 
 .day-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    --view-height: calc(90vh - 3em);
+    grid-template-rows: calc(var(--view-height) / 7);
+}
+
+.day-row-date {
+    grid-column: 1 / 2;
+}
+
+.day-row-icon {
+    transform: scale(0.4) translateY(-85%);
+    --view-height: calc(90vh - 3em);
+    --day-row-height: calc(var(--view-height) / 7);
+    justify-self: start;
+    align-items: start;
 }
 
 .temps {
